@@ -33,7 +33,7 @@ To use this script:
 ## Requirements
 
 - Python 3.x
-- `psutil` library for monitoring system information
+- `pyudev` library for monitoring system information
 - `pygame` library for playing audio files
 
 ## Installation
