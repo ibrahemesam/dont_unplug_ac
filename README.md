@@ -35,6 +35,7 @@ To use this script:
 - Python 3.x
 - `pyudev` library for monitoring system information
 - `pygame` library for playing audio files
+- `pyalsaaudio` library for setting system master volume
 
 ## Installation
 
