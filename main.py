@@ -5,10 +5,12 @@ so that the Laptop do NOT shutdown suddenly
 cause my battery is almost dead [:
 """
 from pyudev import Context, Monitor
+import alsaaudio
 import signal
 import os
 
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+alsamixer = alsaaudio.Mixer('Master')
 mixer = __import__('pygame').mixer
 mixer.init()
 HERE = os.path.dirname(os.path.realpath(__file__))
@@ -20,10 +22,18 @@ class Beep:
         self.plays = mixer.Sound(audio_filename)
         self.plays.set_volume(1.0)
         self.is_playing = False
+        self.__get_master_volume_status()
+
+    def __get_master_volume_status(self):
+        self.master_volume = alsamixer.getvolume()
+        self.master_is_muted = 1 in alsamixer.getmute()
 
     def play(self):
         if self.is_playing:
             return
+        self.__get_master_volume_status()
+        alsamixer.setmute(0)
+        os.system('pactl set-sink-volume @DEFAULT_SINK@ 150%') # set master volume to 150%
         self.is_playing = True
         self.plays.play(loops=-1)
 
@@ -32,6 +42,8 @@ class Beep:
             return
         self.is_playing = False
         self.plays.stop()
+        alsamixer.setmute(self.master_is_muted)
+        os.system(f'pactl set-sink-volume @DEFAULT_SINK@ {r"% ".join(str(i) for i in self.master_volume)}%') # return master volume to previous
 
 
 ac_online_filename = '/sys/class/power_supply/AC/online'
@@ -47,12 +59,12 @@ def is_charger_plugged():
 # init udev monitor
 ctx = Context()
 monitor = Monitor.from_netlink(ctx)
-monitor.filter_by(subsystem='power_supply')
+monitor.filter_by(subsystem='power_supply', device_type="power_supply")
 
 # init beep
-beep = Beep("./beep-09.mp3")
+# beep = Beep("./beep-09.mp3")
 # beep = Beep("./meme.mp3")
-# beep = Beep("./حط_الشاحن_بسرعة.mod.mp3") # NOTE: audio file to play when AC Adapter gets unplugged
+beep = Beep("./me.meme.mp3") # NOTE: audio file to play when AC Adapter gets unplugged
 
 
 if not is_charger_plugged():
@@ -69,6 +81,7 @@ signal.signal(signal.SIGTERM, signal_handler)
 
 try:
     for _, dev in monitor:
+        # print(dev.device_path)
         if 'power_supply/ACAD' in dev.device_path:
             plugged = is_charger_plugged()
             if plugged:
