@@ -10,8 +10,8 @@ import signal
 import os
 
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-alsamixer = alsaaudio.Mixer('Master')
 mixer = __import__('pygame').mixer
+alsamixer = alsaaudio.Mixer('Master')
 mixer.init()
 HERE = os.path.dirname(os.path.realpath(__file__))
 os.chdir(HERE)
@@ -62,9 +62,7 @@ monitor = Monitor.from_netlink(ctx)
 monitor.filter_by(subsystem='power_supply', device_type="power_supply")
 
 # init beep
-# beep = Beep("./beep-09.mp3")
-# beep = Beep("./meme.mp3")
-beep = Beep("./me.meme.mp3") # NOTE: audio file to play when AC Adapter gets unplugged
+beep = Beep("./beep.mp3") # NOTE: audio file to play when AC Adapter gets unplugged
 
 
 if not is_charger_plugged():
