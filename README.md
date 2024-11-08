@@ -1,67 +1,51 @@
 # dont_unplug_ac
 
-A Python script that plays an audio warning when a laptop's AC adapter is unplugged.
+play an audio warning when a laptop's AC adapter gets unplugged.
 
 ## Table of Contents
 
 - [About](#about)
 - [Features](#features)
-- [Usage](#usage)
 - [Requirements](#requirements)
-- [Installation](#installation)
-- [Configuration](#configuration)
+- [Usage](#usage)
 
 ## About
 
-This project aims to prevent accidental disconnection of a laptop's AC adapter, which can lead to unexpected shutdowns due to low battery. The script monitors the power status of the laptop and plays an audio file when the AC adapter is unplugged, allowing the user to reconnect the charger before the battery runs out completely.
+This project aims to prevent accidental disconnection of a laptop's AC adapter, which can lead to unexpected shutdowns due to low-health battery.<br>
+It monitors the power status of the laptop and plays an audio file when the AC adapter gets unplugged, allowing the user to reconnect the charger quickly before the battery runs out completely.
 
 ## Features
 
 - Monitors power status of the laptop
-- Plays audio warnings when AC adapter is unplugged
-- Prevents unexpected shutdowns due to low battery
-- Designed for Linux systems (concept can be ported to Windows)
+- Plays audio warning when AC adapter gets unplugged
+- Prevents unexpected shutdowns due to low-health battery
+- Available for <strong>Linux</strong> and <strong>Windows</strong> (concept can be ported to <strong>Mac</strong>)
+
+## Requirements
+
+- Python 3.x
+- Linux or Windows system
 
 ## Usage
 
 To use this script:
 
-1. Clone the repository
-2. Install the required dependencies (see below)
-3. Add the script to start automatically at boot
-
-## Requirements
-
-- Python 3.x
-- `pyudev` library for monitoring system information
-- `pygame` library for playing audio files
-- `pyalsaaudio` library for setting system master volume
-
-## Installation
-
-To install the script:
-
 1. Clone the repository:
-```bash
-git clone https://github.com/ibrahemesam/dont_unplug_ac.git
-```
-2. Install the required dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-## Configuration
-
-To configure the system to run the script automatically:
-
-1. Add the script to your startup applications ` ~/.local/share/autocorrect/` or create a systemd service file.
+   - `git clone https://github.com/ibrahemesam/dont_unplug_ac.git`
+2. Install Python requirements:-
+   - on <strong>Linux</strong>: `pip install -r requirements_linux.txt`
+   - on <strong>Windows</strong>: `pip install -r requirements_win32.txt`
+3. Configure the app to start automatically at boot:-
+   - on <strong>Linux</strong>: make link to the `main.py` script into your startup applications directory ` ~/.local/share/autocorrect/`. Or create a <strong>systemd service</strong> file.
+   - on <strong>Windows</strong>: make a batch file that runs `python.exe /path/to/main.py` and place that batch file into startup folder `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp`.
+     Or use <strong>Windows Task Scheduler</strong> to add a task that runs at boot.
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
 > Give me a Star if you like it 🌟
 
 ## License
 
-This project is licensed under the MIT License
-
+This project is licensed under the <a href="https://opensource.org/license/MIT">MIT License</a>
