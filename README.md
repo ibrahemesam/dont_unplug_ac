@@ -1,6 +1,6 @@
 <h1 align="center" style="font-weight: bold">~: dont_unplug_ac :~</h1>
 <p align="center">
-  <img src="logo.jpg" width="50%" style="border-radius: 10px;"/>
+  <img src="logo.svg" width="40%" style="border-radius: 10px;"/>
 </p>
 
 > play an audio warning when a laptop's AC adapter gets unplugged.
