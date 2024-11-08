@@ -1,0 +1,3 @@
+- [ ] add macOS support
+- [ ] prevent running the app on a health battery
+- [ ] prevent running multiple instances  of app
