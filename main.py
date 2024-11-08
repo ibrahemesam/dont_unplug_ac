@@ -5,10 +5,10 @@
     cause my battery is almost dead [:
 """
 
-# cd into APP_ROOT
-import os
+import os, sys
 APP_ROOT = os.path.dirname(os.path.realpath(__file__))
-os.chdir(APP_ROOT)
+sys.path.append(APP_ROOT) # add APP_ROOT to PYTHONPATH
+os.chdir(APP_ROOT) # cd into APP_ROOT
 
 # init beep
 from audio import Beep
@@ -42,8 +42,8 @@ set_on_ac_adapter_state_change(on_plugged=on_plugged, on_unplugged=on_unplugged)
 
 # sleep forever
 from time import sleep
-while True:
-    sleep(999999)
-
-
-
+try:
+    while True:
+        sleep(999999)
+except KeyboardInterrupt:
+    os._exit(0)

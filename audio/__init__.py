@@ -2,8 +2,10 @@ import sys
 
 if sys.platform == 'win32':
     from .win32 import MasterMixer
+    BUF_SIZE = 1024 # a lower BUF_SIZE to reduce latency on Windows
 elif sys.platform == 'linux':
     from .linux import MasterMixer
+    BUF_SIZE = 1024 * 1024 # a heigher BUF_SIZE to reduce CPU usage
 else:
     raise Exception(f"Unsupported Platform: {sys.platform}")
 
@@ -14,7 +16,7 @@ import pyaudio
 import wave
 import os
 
-BUF_SIZE = 1024 * 1024
+
 
 class AudioFile(Thread):
     def __init__(self, filename):
