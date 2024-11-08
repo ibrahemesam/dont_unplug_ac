@@ -1,0 +1,3 @@
+pyaudio # for audio playback
+pywin32 # for monitoring power events
+pycaw # for master volume control

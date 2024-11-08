@@ -1,0 +1,3 @@
+pyaudio # for audio playback
+pyudev # for monitoring power events
+pyalsaaudio # for master volume control
