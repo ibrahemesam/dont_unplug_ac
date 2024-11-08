@@ -24,7 +24,7 @@ It monitors the power status of the laptop and plays an audio file when the AC a
 ## Requirements
 
 - Python 3.x
-- Linux or Windows system
+- <strong>Linux</strong> or <strong>Windows</strong> system
 
 ## Usage
 
