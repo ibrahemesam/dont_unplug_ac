@@ -5,6 +5,7 @@
     cause my battery is almost dead [:
 """
 
+import dont_run_twice
 import os, sys
 APP_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(APP_ROOT) # add APP_ROOT to PYTHONPATH
