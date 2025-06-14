@@ -2,14 +2,13 @@ import sys
 
 if sys.platform == 'win32':
     from .win32 import MasterMixer
-    BUF_SIZE = 1024 # a lower BUF_SIZE to reduce latency on Windows
 elif sys.platform == 'linux':
     from .linux import MasterMixer
-    BUF_SIZE = 1024 * 1024 # a heigher BUF_SIZE to reduce CPU usage
 else:
     raise Exception(f"Unsupported Platform: {sys.platform}")
 
 master_mixer = MasterMixer()
+BUF_SIZE = 1024 # a lower BUF_SIZE to reduce latency (but causes a bit high CPU)
 
 from threading import Thread, Event
 import pyaudio
@@ -58,6 +57,7 @@ class AudioFile(Thread):
             if self.__exit_thread:
                 return
             while self.__loops:
+                self.evt_playing.wait()
                 self.wf.setpos(0) # seek to audio start
                 data = self.wf.readframes(BUF_SIZE)
                 while data != b'':
@@ -65,7 +65,8 @@ class AudioFile(Thread):
                         break
                     self.stream.write(data)
                     data = self.wf.readframes(BUF_SIZE)
-                    self.evt_playing.wait()
+                    if not self.evt_playing.is_set():
+                        break
                 if self.__stop_playing:
                     break
                 self.__loops -= 1
